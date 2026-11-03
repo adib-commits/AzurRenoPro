@@ -1,4 +1,4 @@
-def create_test_service(client):
+def create_test_service(client, auth_headers):
     response = client.post(
         "/services",
         json={
@@ -6,6 +6,7 @@ def create_test_service(client):
             "description": "Travaux de peinture pour murs et plafonds",
             "active": True,
         },
+        headers=auth_headers,
     )
 
     assert response.status_code == 201
@@ -13,7 +14,7 @@ def create_test_service(client):
     return response.json()
 
 
-def test_create_service(client):
+def test_create_service(client, auth_headers):
     response = client.post(
         "/services",
         json={
@@ -21,6 +22,7 @@ def test_create_service(client):
             "description": "Travaux de peinture pour murs et plafonds",
             "active": True,
         },
+        headers=auth_headers,
     )
 
     assert response.status_code == 201
@@ -33,8 +35,8 @@ def test_create_service(client):
     assert "id" in data
 
 
-def test_get_services(client):
-    service = create_test_service(client)
+def test_get_services(client, auth_headers):
+    service = create_test_service(client, auth_headers)
 
     response = client.get("/services")
 
@@ -47,8 +49,8 @@ def test_get_services(client):
     assert data[0]["name"] == "Peinture intérieure"
 
 
-def test_get_service_by_id(client):
-    service = create_test_service(client)
+def test_get_service_by_id(client, auth_headers):
+    service = create_test_service(client, auth_headers)
 
     response = client.get(f"/services/{service['id']}")
 
@@ -67,12 +69,13 @@ def test_get_unknown_service(client):
     assert response.json()["detail"] == "Service not found"
 
 
-def test_update_service(client):
-    service = create_test_service(client)
+def test_update_service(client, auth_headers):
+    service = create_test_service(client, auth_headers)
 
     response = client.patch(
         f"/services/{service['id']}",
         json={"active": False},
+        headers=auth_headers,
     )
 
     assert response.status_code == 200

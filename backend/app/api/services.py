@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.core.dependencies import get_current_artisan
 from app.db.database import get_db
-from app.models import Service
+from app.models import Service, User
 from app.schemas.service import (
     ServiceCreate,
     ServiceResponse,
@@ -24,6 +25,7 @@ router = APIRouter(
 def create_service(
     service_data: ServiceCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_artisan),
 ):
     service = Service(**service_data.model_dump())
 
@@ -71,6 +73,7 @@ def update_service(
     service_id: int,
     service_data: ServiceUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_artisan),
 ):
     service = db.get(Service, service_id)
 

@@ -32,12 +32,14 @@ export default function Header() {
             <p className="text-lg font-black tracking-tight text-slate-950">
               AzurRenoPro
             </p>
+
             <p className="text-xs font-medium text-slate-500">
               Rénovation & aménagement
             </p>
           </div>
         </Link>
 
+        {/* Navigation desktop */}
         <nav className="hidden items-center gap-8 md:flex">
           {navigation.map((item) => (
             <Link
@@ -50,13 +52,21 @@ export default function Header() {
           ))}
 
           <Link
+            href="/login"
+            className="text-sm font-semibold text-slate-600 transition hover:text-amber-600"
+          >
+            Espace artisan
+          </Link>
+
+          <Link
             href="/appointment"
-            className="rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-amber-500 hover:text-slate-950"
+            className="rounded-xl bg-amber-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-500"
           >
             Prendre rendez-vous
           </Link>
         </nav>
 
+        {/* Bouton menu mobile */}
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
@@ -68,6 +78,7 @@ export default function Header() {
         </button>
       </div>
 
+      {/* Navigation mobile */}
       {menuOpen && (
         <nav className="border-t border-slate-200 bg-white px-6 py-5 md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
@@ -83,9 +94,17 @@ export default function Header() {
             ))}
 
             <Link
+              href="/login"
+              onClick={closeMenu}
+              className="rounded-xl px-4 py-3 font-semibold text-slate-700 transition hover:bg-slate-50"
+            >
+              Espace artisan
+            </Link>
+
+            <Link
               href="/appointment"
               onClick={closeMenu}
-              className="mt-2 rounded-xl bg-slate-950 px-4 py-3 text-center font-bold text-white"
+              className="mt-2 rounded-xl bg-amber-400 px-4 py-3 text-center font-bold text-slate-950 transition hover:bg-amber-500"
             >
               Prendre rendez-vous
             </Link>

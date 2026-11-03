@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.core.dependencies import get_current_artisan
 from app.db.database import get_db
-from app.models import Appointment
+from app.models import Appointment, User
 from app.schemas.appointment import (
     AppointmentCreate,
     AppointmentResponse,
@@ -40,6 +41,7 @@ def create_appointment(
 )
 def get_appointments(
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_artisan),
 ):
     return db.query(Appointment).all()
 
@@ -51,6 +53,7 @@ def get_appointments(
 def get_appointment(
     appointment_id: int,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_artisan),
 ):
     appointment = db.get(Appointment, appointment_id)
 
@@ -71,6 +74,7 @@ def update_appointment_status(
     appointment_id: int,
     status_data: AppointmentStatusUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_artisan),
 ):
     appointment = db.get(Appointment, appointment_id)
 

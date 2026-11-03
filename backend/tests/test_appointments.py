@@ -38,10 +38,13 @@ def test_create_appointment(client):
     assert "created_at" in data
 
 
-def test_get_appointments(client):
+def test_get_appointments(client, auth_headers):
     appointment = create_test_appointment(client)
 
-    response = client.get("/appointments")
+    response = client.get(
+        "/appointments",
+        headers=auth_headers,
+    )
 
     assert response.status_code == 200
 
@@ -52,11 +55,12 @@ def test_get_appointments(client):
     assert data[0]["customer_name"] == "Marie Test"
 
 
-def test_get_appointment_by_id(client):
+def test_get_appointment_by_id(client, auth_headers):
     appointment = create_test_appointment(client)
 
     response = client.get(
-        f"/appointments/{appointment['id']}"
+        f"/appointments/{appointment['id']}",
+        headers=auth_headers,
     )
 
     assert response.status_code == 200
@@ -67,19 +71,23 @@ def test_get_appointment_by_id(client):
     assert data["customer_name"] == "Marie Test"
 
 
-def test_get_unknown_appointment(client):
-    response = client.get("/appointments/999")
+def test_get_unknown_appointment(client, auth_headers):
+    response = client.get(
+        "/appointments/999",
+        headers=auth_headers,
+    )
 
     assert response.status_code == 404
     assert response.json()["detail"] == "Appointment not found"
 
 
-def test_update_appointment_status(client):
+def test_update_appointment_status(client, auth_headers):
     appointment = create_test_appointment(client)
 
     response = client.patch(
         f"/appointments/{appointment['id']}",
         json={"status": "confirmed"},
+        headers=auth_headers,
     )
 
     assert response.status_code == 200
@@ -90,12 +98,13 @@ def test_update_appointment_status(client):
     assert data["status"] == "confirmed"
 
 
-def test_reject_invalid_appointment_status(client):
+def test_reject_invalid_appointment_status(client, auth_headers):
     appointment = create_test_appointment(client)
 
     response = client.patch(
         f"/appointments/{appointment['id']}",
         json={"status": "bonjour"},
+        headers=auth_headers,
     )
 
     assert response.status_code == 422

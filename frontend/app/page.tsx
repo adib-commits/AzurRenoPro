@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 
 const services = [
@@ -5,19 +6,22 @@ const services = [
     number: "01",
     title: "Peinture",
     description:
-      "Rafraîchissement, rénovation et mise en peinture de vos espaces intérieurs.",
+      "Rafraîchissement, rénovation et mise en peinture de vos espaces intérieurs et extérieurs.",
+    href: "/quote?category=peinture",
   },
   {
     number: "02",
     title: "Rénovation",
     description:
-      "Des travaux adaptés pour moderniser et valoriser votre logement.",
+      "Des travaux adaptés pour moderniser, rénover et valoriser votre logement.",
+    href: "/quote?category=renovation",
   },
   {
     number: "03",
     title: "Aménagement",
     description:
       "Des solutions fonctionnelles pour transformer et optimiser vos espaces.",
+    href: "/quote?category=amenagement",
   },
 ];
 
@@ -42,7 +46,9 @@ export default function Home() {
 
             <h1 className="max-w-4xl text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
               Donnez une nouvelle vie à{" "}
-              <span className="text-amber-400">votre intérieur.</span>
+              <span className="text-amber-400">
+                votre intérieur.
+              </span>
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300">
@@ -69,7 +75,10 @@ export default function Home() {
 
             <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-300">
               {advantages.map((advantage) => (
-                <div key={advantage} className="flex items-center gap-2">
+                <div
+                  key={advantage}
+                  className="flex items-center gap-2"
+                >
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-400 text-xs font-black text-slate-950">
                     ✓
                   </span>
@@ -86,12 +95,15 @@ export default function Home() {
                   <p className="text-sm font-bold text-amber-400">
                     VOTRE PROJET
                   </p>
+
                   <h2 className="mt-2 text-2xl font-bold">
                     Une démarche simple
                   </h2>
                 </div>
 
-                <span className="text-5xl font-black text-white/10">AR</span>
+                <span className="text-5xl font-black text-white/10">
+                  AR
+                </span>
               </div>
 
               <div className="space-y-5">
@@ -107,14 +119,17 @@ export default function Home() {
                     <span className="text-xl font-black text-amber-400">
                       {number}
                     </span>
-                    <p className="font-semibold text-slate-100">{text}</p>
+
+                    <p className="font-semibold text-slate-100">
+                      {text}
+                    </p>
                   </div>
                 ))}
               </div>
 
               <Link
                 href="/appointment"
-                className="mt-8 block rounded-xl bg-white px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-slate-100"
+                className="mt-8 block rounded-xl bg-amber-400 px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-amber-500"
               >
                 Planifier un rendez-vous
               </Link>
@@ -161,7 +176,7 @@ export default function Home() {
                 </p>
 
                 <Link
-                  href="/services"
+                  href={service.href}
                   className="mt-8 inline-flex font-bold text-slate-950 transition group-hover:text-amber-600"
                 >
                   En savoir plus →
@@ -192,16 +207,28 @@ export default function Home() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-3xl bg-slate-950 p-7 text-white">
-              <p className="text-3xl font-black text-amber-400">01</p>
-              <h3 className="mt-8 text-xl font-bold">Simple</h3>
+              <p className="text-3xl font-black text-amber-400">
+                01
+              </p>
+
+              <h3 className="mt-8 text-xl font-bold">
+                Simple
+              </h3>
+
               <p className="mt-2 text-sm leading-6 text-slate-400">
                 Des formulaires clairs pour présenter rapidement votre projet.
               </p>
             </div>
 
             <div className="rounded-3xl bg-amber-400 p-7 text-slate-950">
-              <p className="text-3xl font-black">02</p>
-              <h3 className="mt-8 text-xl font-bold">Rapide</h3>
+              <p className="text-3xl font-black">
+                02
+              </p>
+
+              <h3 className="mt-8 text-xl font-bold">
+                Rapide
+              </h3>
+
               <p className="mt-2 text-sm leading-6 text-slate-800">
                 Envoyez votre demande et planifiez votre rendez-vous en ligne.
               </p>
