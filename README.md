@@ -1,4 +1,4 @@
-# Artisan Platform
+# AzurRenoPro
 
 Artisan Platform est une application web destinée aux artisans permettant de présenter leurs services, recevoir des demandes de devis et gérer les prises de rendez-vous.
 
