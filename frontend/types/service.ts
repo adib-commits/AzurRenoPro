@@ -4,3 +4,15 @@ export interface Service {
   description: string | null;
   active: boolean;
 }
+
+export interface ServiceCreate {
+  name: string;
+  description: string | null;
+  active: boolean;
+}
+
+export interface ServiceUpdate {
+  name?: string;
+  description?: string | null;
+  active?: boolean;
+}
